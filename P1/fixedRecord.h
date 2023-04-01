@@ -5,39 +5,34 @@
 
 using namespace std;
 
+//sobrecarga para leer y escribir registros en archivo de texto (no binario)
 istream &operator>>(istream &stream, Alumno &record)
 {
-    stream.read(record.codigo, sizeof(record.codigo));
-    stream.read(record.nombre, sizeof(record.nombre));
-    stream.read(record.apellidos, sizeof(record.apellidos));
-    stream.read(record.carrera, sizeof(record.carrera));
-    stream.get();
-    stream.get(); //doble salto de linea para que el atributo del siguiente alumno no tomen el salto de línea
-
-    //Lleno con espacios vacíos aquellos no utilizados según el string más grande de cada atributo
-    record.codigo[4] = '\0';
-    // cout << "tamanio codigo: " << sizeof(record.codigo) << endl;
-    // cout << "codigo: " << record.codigo << endl;
-    record.nombre[6] = '\0';
-    // cout << "tamanio nombre: " << sizeof(record.nombre) << endl;
-    // cout << "nombre: " << record.nombre << endl;
-    record.apellidos[16] = '\0';
-    // cout << "tamanio apellidos: " << sizeof(record.apellidos) << endl;
-    // cout << "apellidos: " << record.apellidos << endl;
-    record.carrera[12] = '\0';
-    // cout << "tamanio carrera: " << sizeof(record.carrera) << endl;
-    // cout << "carrera: " << record.carrera << endl;
+    std::getline(stream, record.codigo, ' ');
+    std::getline(stream, record.nombre, ' ');
+    std::getline(stream, record.apellidos, ' ');
+    std::getline(stream, record.carrera,'\n'); 
     return stream;
 }
 
 ostream &operator<<(ostream &stream, Alumno &record)
 {
-    stream.write(record.codigo, sizeof(record.codigo));
-    stream.write(record.nombre, sizeof(record.nombre));
-    stream.write(record.apellidos, sizeof(record.apellidos));
-    stream.write(record.carrera, sizeof(record.carrera));
-    stream << "\n";
-    stream << flush;
+    stream << record.codigo;
+    int espaciado = 5-record.codigo.length();
+    for(int i=0;i<espaciado;i++){
+        stream<<" ";
+    }
+    stream << record.nombre;
+    espaciado = 11-record.nombre.length();
+    for(int i=0;i<espaciado;i++){
+        stream<<" ";
+    }
+    stream << record.apellidos;
+    espaciado = 20-record.apellidos.length();
+    for(int i=0;i<espaciado;i++){
+        stream<<" ";
+    }
+    stream << record.carrera << endl;
     return stream;
 }
 
@@ -73,7 +68,7 @@ public:
     }
     void add(Alumno record)
     {
-        ofstream file(nombreArchivo.c_str(), ios::app);
+        ofstream file(nombreArchivo.c_str(), ios::app | ios::binary);
         if (file.is_open())
         {
             file << record;
@@ -87,8 +82,17 @@ public:
         ifstream file(nombreArchivo.c_str());
         if (file.is_open())
         {
-            file.seekg(pos * (sizeof(record)+1), ios::beg);
-            file >> record;
+            int i=0;
+            if(pos==0)
+                file >> record;
+            else if(pos>0){
+                while (file >> record){
+                    if(i==pos){
+                        break;
+                    }
+                    i++;
+                }
+            }
             file.close();
         }
         return record;

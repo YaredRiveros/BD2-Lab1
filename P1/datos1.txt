@@ -5,4 +5,4 @@
 0005 Vanesa     Cooper Quizpe       Mecatronica    
 0006 Jesus      Vega Cordero        Industrial     
 0007 Heider     Sanchez Quizpe      Mecatronica
-‎ 
+0008 Yared      Riveros Rodriguez   Computacion
