@@ -7,6 +7,7 @@ int main() {
     VariableRecord vr("datos.txt");
     vector<Alumno> alumnos = vr.load();
 
+    cout << "\t--Lista de alumnos en el archivo--" << endl;
     for (size_t i = 0; i < alumnos.size(); i++) {
         cout << alumnos[i].Nombre << " "
              << alumnos[i].Apellidos << " "
@@ -24,6 +25,8 @@ int main() {
 
     alumnos = vr.load();
 
+    cout << "\t--Lista de alumnos en el archivo luego de agregar al nuevo alumno (Rajesh Koothrappali)--" << endl;
+
     for (size_t i = 0; i < alumnos.size(); i++) {
         cout << alumnos[i].Nombre << " "
              << alumnos[i].Apellidos << " "
@@ -31,14 +34,17 @@ int main() {
              << alumnos[i].mensualidad << endl;
     }
 
+    cout << endl << "\t--Leer el registro en la posición 4--" << endl;
+
     int pos = 4;
     Alumno registro = vr.readRecord(pos);
 
-    cout << "Registro en la posición " << pos << ": "
-         << registro.Nombre << " "
-         << registro.Apellidos << " "
-         << registro.Carrera << " "
-         << registro.mensualidad << endl;
+    cout << "Registro en la posición " << pos << ": " << endl; //La posición cuenta desde 0 (0 es la pos del primer registro)
+
+    cout << "Nombre: " << registro.Nombre << endl;
+    cout << "Apellidos: " << registro.Apellidos << endl;
+    cout << "Carrera: " << registro.Carrera << endl;
+    cout << "Mensualidad: " << registro.mensualidad << endl;
 
     return 0;
 }

@@ -64,6 +64,9 @@ public:
         if (pos >= 0 && pos < alumnos.size()) {
             record = alumnos[pos];
         }
+        else{
+            cout << "La posición está fuera de rango" << endl;
+        }
         return record;
     }
 };
