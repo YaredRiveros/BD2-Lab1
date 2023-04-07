@@ -16,10 +16,20 @@ int main() {
     }
 
     Alumno nuevo;
-    nuevo.Nombre = "Rajesh";
-    nuevo.Apellidos = "Koothrappali";
-    nuevo.Carrera = "Fisica";
-    nuevo.mensualidad = 1700.0;
+    cout << "Ingrese el nombre del nuevo alumno: ";
+    getline(cin, nuevo.Nombre);
+    cout << "Ingrese los apellidos del nuevo alumno: ";
+    getline(cin, nuevo.Apellidos);
+    cout << "Ingrese la carrera del nuevo alumno: ";
+    getline(cin, nuevo.Carrera);
+    // cin.ignore();
+    cout << "Ingrese la mensualidad del nuevo alumno: ";
+    cin >> nuevo.mensualidad;
+
+    // nuevo.Nombre = "Rajesh";
+    // nuevo.Apellidos = "Koothrappali";
+    // nuevo.Carrera = "Fisica";
+    // nuevo.mensualidad = 1700.0;
 
     vr.add(nuevo);
 
@@ -34,7 +44,7 @@ int main() {
              << alumnos[i].mensualidad << endl;
     }
 
-    cout << endl << "\t--Leer el registro en la posición 4--" << endl;
+    cout << endl << "\t--Leer el registro en la posición 4 (contando desde 0)--" << endl;
 
     int pos = 4;
     Alumno registro = vr.readRecord(pos);
