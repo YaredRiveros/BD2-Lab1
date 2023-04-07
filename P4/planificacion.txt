@@ -1,0 +1,15 @@
+En esta tarea no podemos almacenar los Records como tal porque el sizeof() de cada uno de estos siempre será igual.
+Esto se debe a que no importa que tan grande sea el string, siempre pesará 32 bytes. Entonces, para que cada registro ocupe
+diferente espacio en memoria, es necesario guardar solo los atributos, y no solo eso, sino que en el caso del string, solo
+debemos quedarnos con la cadena de caracteres y no el objeto "string". Para ello, utilizaremos el método del objeto string .c_str(),
+que nos permite quedarnos solo con la cadena de caracteres, ignorando todo lo demás.
+
+En el método size, convertiremos todos los atributos a string. Luego, crearemos un array de arrays de string para almacenar cada
+atributo en una posición diferente y en orden. A continuación, guardaremos el doble puntero de tipo char en una variable de la
+estructura. Por último, retornará el tamaño, que es sizeof(arr)/sizeof(*arr).
+
+En el método empaquetar, retornaremos el doble puntero a char.
+
+En el método desempaquetar, solamente recibiremos dicho doble puntero. Luego, según su posición, determinaremos a cuál atributo
+se le debe asignar cada elemento. Si es necesario, deberemos convertir la cadena a número (podemos usar el constructor del string
+para crear un string a partir de la cadena y luego usar stoi o stof para convertirlo a número).
