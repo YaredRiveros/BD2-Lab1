@@ -36,32 +36,34 @@ int main(){
         cout << "-----------------------------------------------" << endl;
     }
 
-    // cout << "\t--Agrego dos nuevas matrícula--" << endl; 
-    // Matricula m;
-    // //Nueva matricula 2
-    // m.codigo = "2019-1";
-    // m.ciclo = 1;
-    // m.mensualidad = 100;
-    // m.observaciones = "Un capo";
-    // f.add(m);
+    cout << "\t--Agrego dos nuevas matrícula--" << endl; 
+    Matricula m;
+    cout << "Agrego la matrícula 2" << endl;
+    //Nueva matricula 2
+    m.codigo = "2019-1";
+    m.ciclo = 1;
+    m.mensualidad = 100;
+    m.observaciones = "Un capo";
+    f.add(m);
 
     // //Nueva matricula 3
-    // m.codigo = "2019-2";
+    // cout << "Agrego la matrícula 3" << endl;
+    // m.codigo = "2020-1";
     // m.ciclo = 2;
     // m.mensualidad = 200;
     // m.observaciones = "Cuídense de este";
     // f.add(m);
 
-    // cout << "\t--Imprimo matrículas registradas hasta el momento--" << endl;
-    // matriculas = f.load();
-    // for(int i=0;i<matriculas.size();i++){
-    //     cout << "Matrícula " << i+1 << endl;
-    //     cout << "Código: " << matriculas[i].codigo << endl;
-    //     cout << "Ciclo: " << matriculas[i].ciclo << endl;
-    //     cout << "Mensualidad: " << matriculas[i].mensualidad << endl;
-    //     cout << "Observaciones: " << matriculas[i].observaciones << endl;
-    //     cout << "-----------------------------------------------" << endl;
-    // }
+    cout << "\t--Imprimo matrículas registradas hasta el momento--" << endl;
+    matriculas = f.load();
+    for(int i=0;i<matriculas.size();i++){
+        cout << "Matrícula " << i+1 << endl;
+        cout << "Código: " << matriculas[i].codigo << endl;
+        cout << "Ciclo: " << matriculas[i].ciclo << endl;
+        cout << "Mensualidad: " << matriculas[i].mensualidad << endl;
+        cout << "Observaciones: " << matriculas[i].observaciones << endl;
+        cout << "-----------------------------------------------" << endl;
+    }
 
     // cout << "\t--Leo la matrícula en la posición 1--" << endl;
     // Matricula m2 = f.readRecord(1);
@@ -75,9 +77,10 @@ int main(){
 
 
     //errores:
-    //1. Cuando se lee el archivo, los datos numéricos no se leen correctamente
-    //2. CUando se hace un load() entra en un bucle infinito porque no sé cuándo llego al final del archivo (eof() no sirve)
-    //3. El add no agrega un registro al archivo    
+    //1. El add agrega registros, pero no concuerdan con el código u observaciones ingresadas. Parece que se debe a que si cambio
+    //el char** arr y lo escribo, se modifican todos los arrays escritos en el archivo. Por ello todas las matrículas tienen el
+    //mismo código y observaciones. Sin embargo, esto no pasa con los enteros y floats porque los inserté directamente en el archivo.
 
+    //La posible solución es dejar de intentar empaquetar los strings y escribirlos directamente en el archivo. 
     return 0;
 }

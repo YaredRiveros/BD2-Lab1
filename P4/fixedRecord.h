@@ -39,13 +39,16 @@ public:
         header.write((char*)&pos, sizeof(header.tellp()));
         header.close();
         //2. Escribo la matricula al final del archivo
+        int size = m.getSize();
         const char** arr = m.empaquetar(); //obtengo el array de atributos de texto
 
         //Escribo el paquete de atributos de texto
-        // writeToFile(arr, m.getSize(), fileName.c_str());
-        int size = m.getSize();
         file.write((char*) &size, sizeof(size));
         file.write((char*) arr, sizeof(char*) * size); //escribo paquete de atributos de texto
+        cout << "arrays(escribo): " << endl;
+        for(int i = 0; i < size; i++){
+            cout << arr[i] << endl;
+        }
         //Escribo los atributos de tipo numérico
         file.write((char*) &m.ciclo, sizeof(m.ciclo));
         file.write((char*) &m.mensualidad, sizeof(m.mensualidad));
@@ -55,12 +58,11 @@ public:
     vector<Matricula> load(){
         vector<Matricula> matriculas;
         ifstream file(fileName, ios::in | ios::binary);
-        //Me aseguro que no esté vacío
-        // file.seekg(sizeof(int), ios::beg);
+        //Me aseguro que no estoy en el final
+        file.seekg(0, ios::end);
+        int fin = file.tellg();
         file.seekg(0, ios::beg);
-        int i = 1;
-        while(i>0){ //Si el archivo no está vacío
-            cout << "no vacio" << endl;
+        while(file.tellg() < fin){ //Si no he llegado al final del archivo
             // file.seekg(0, ios::beg); //Ya que comprobé que no está vacío, me muevo al inicio
             char** newArr;
             int newSize;
@@ -70,7 +72,7 @@ public:
             file.read((char*) &newSize, sizeof(newSize));
             newArr = new char*[newSize];
             file.read((char*) newArr, sizeof(char*) * newSize);
-            m.desempaquetar(newArr, newSize);
+            m.desempaquetar(newArr);
             //Leo los atributos de tipo numérico
             file.read((char*) &m.ciclo, sizeof(m.ciclo));
             float value;
@@ -78,8 +80,8 @@ public:
             file.read((char*) buffer, sizeof(float));
             value = *(float*) buffer;
             m.mensualidad = value;
+
             matriculas.push_back(m);
-            i--;
         }
         file.close();
         return matriculas;
@@ -95,7 +97,7 @@ public:
         int newSize;
         Matricula m;
         readFromFile(newArr, newSize, fileName.c_str());
-        m.desempaquetar(newArr, newSize);
+        m.desempaquetar(newArr);
         //4. Cierro el header
         file.close();
 
