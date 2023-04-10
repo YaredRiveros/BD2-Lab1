@@ -72,28 +72,6 @@ int main(){
     cout << "Ciclo: " << m2.ciclo << endl;
     cout << "Mensualidad: " << m2.mensualidad << endl;
     cout << "Observaciones: " << m2.observaciones << endl;
-    cout << "-----------------------------------------------" << endl;
-
-
-    // Prueba de empaquetado y desempaquetado
-
-    Matricula m("2018-1", 7, 3000.67, "Un crack");
-    
-    char *empaquetado = m.empaquetar();
-
-    for(int i=0;i<m.getSize();i++){
-        cout << empaquetado[i];
-    }
-
-    cout << endl;
-    
-    Matricula m2 ;
-    m2.desempaquetar(empaquetado, m.getSize());
-
-    cout << m2.codigo << endl;
-    cout << m2.ciclo << endl;
-    cout << m2.mensualidad << endl;
-    cout << m2.observaciones << endl;
-    
+    cout << "-----------------------------------------------" << endl;    
 
 }
